@@ -1,23 +1,12 @@
-/*!
- * Squeezebox
- * A minimal Vanilla JavaScript accordion
- * 
- * MIT License
- * by Nobita
- *
- * Ugly version:
- * Old version: 3974 characters
- * New version: 1779 characters
- * Saved: 2195 (result is 44.7% of original)
- *
- *
+/* Squeezebox - vanilla JavaScript accordion
+ * MIT License - by Nobita
  */
 
 ;(function ( window, document, undefined ) {
 
 	"use strict";
 
-	var opt, self, initialized;
+	var opt, self;
 	// UTILS ****
 	function getStyle(el, prop){
 		 return window.getComputedStyle(el).getPropertyValue(prop);
@@ -54,51 +43,66 @@
 	_Squeezebox.prototype = {
 		init : function(){		
 			self = this;
-			this.animProps = ' height: auto; transition: all '+ this.speed +';';
 			this.wrapper = document.querySelectorAll(this.wrapperEl);
 
 			Array.prototype.forEach.call(this.wrapper,function(wr, idx, node){
 				self.getHeights(wr); 
 				self.setListeners(wr); 
 			});
-
 		},
+		// the following method can be called whenever the content of the folder changes
+		// in order to update its height. Example
+		// var sqbox = new Squeezebox();
+		// .....inject content...
+		// sqbox.getHeights(wrapper)
+
+		// TODO: the following method works only if the tabs are closed, refactor it
+		// so that the user needs will be able to update the div height of currently open tabs
 		getHeights : function(wr){
-			// TODO: rewrite this function so that it can calculate the height of a tab even if its
-			// hidden and not only at load time, in order to avoid misbehaviours during ajax calls
-			// or in caso of a templating system in place
+			// Call this method 
 			var folders = wr.getElementsByClassName(self.foldersClass),
 				 fl = folders.length,
-				 el;
+				 el,
+				 elst;
+
+			// Getting height of hidden elements can be tricky.
+			// We need to:
+			// - make sure they DO NOT have display:none so they have actual height
+			// - they remain invisibile (visibility:hidden)
+			// - they git position:absolute so they take no space at all
+			// - they have no transitions attached so that the changes in style take place immediately
+			// Then we can show the element (if hidden), record its styles, and backtrack again.
 			while(fl--){
-				el = folders[fl];;
-				// Register the div height/padding in a custom attribute
+				el = folders[fl],
+				elst = el.style;
+				elst.position = 'absolute';
+				elst.visibility = 'hidden';
+				elst.display = '';
+				elst.transition = '';
+				self.showEl(el);
 				setAttrs(el, {
 					'data-sq_h'  : getStyle(el, 'height'),
 					'data-sq_pt' : getStyle(el, 'padding-top'),
 					'data-sq_pb' : getStyle(el, 'padding-bottom')
-				});
-				// Hide the element
-				self.hideEl(el);
+				});	
+				elst.position = 'relative';
+				elst.visibility = 'visible';
+				self.hideEl(el);		
+				self.addTran(el);
 			}
+		},
+		addTran : function(el){
+			setTimeout(function(){
+				el.style.transition = 'all ' + self.speed;				
+			}, 100);
 		},
 		hideEl : function (el){
 			var elst = el.style;
 			elst.maxHeight = 0;
 			elst.paddingTop = 0;
 			elst.paddingBottom = 0;
-			//elst.overflow = 'hidden';
 			// set its aria-role
 			el.setAttribute('aria-hidden', 'true');
-
-			// add animation class only once and after the folders have been hidden
-			// so the animtion does not occur at load time
-			if (!initialized){
-				setTimeout(function(){
-					el.style.cssText += self.animProps;
-					initialized = true;
-				},10);
-			}
 		},
 		showEl : function(el){
 			var elst = el.style;
@@ -124,14 +128,15 @@
 			     		return;
 			     }
 			   }
-			   // store a reference to the clicked el to be passed as a callback later on
+			   // store a reference to the clicked el to be passed as a callback 
+			   // as 'onOpen' or 'onClose' later on
 			   self.clickedEl = el;
 			   // now el is = to the actual element we need the event to be bound to			   
-			   self.toggleState( el.nextElementSibling );
+			   self.toggle( el.nextElementSibling );
 				
 			});
 		},
-		toggleState : function(el){
+		toggle : function(el){
 			if ( el.getAttribute('aria-hidden') === 'false'){
 				// IF visibile hide it
 				this.hideEl(el);
