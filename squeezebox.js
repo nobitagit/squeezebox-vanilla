@@ -4,13 +4,21 @@
  * 
  * MIT License
  * by Nobita
+ *
+ * Ugly version:
+ * Old version: 3974 characters
+ * New version: 1779 characters
+ * Saved: 2195 (result is 44.7% of original)
+ *
+ *
+ *
  */
 
 ;(function ( window, document, undefined ) {
 
 	"use strict";
 
-	var i, len, opt, initialized;
+	var i, len, opt, self, initialized;
 
 	function getStyle(el, prop){
 		 return window.getComputedStyle(el).getPropertyValue(prop);
@@ -56,7 +64,7 @@
 			this.selectEls();
 		},
 		selectEls : function(){		
-			var len = this.wrapper.length,
+			var len = this.wrapper.length;
 				 self = this;
 
 			Array.prototype.forEach.call(this.wrapper,function(wr, idx, node){
@@ -82,8 +90,7 @@
 
 		},
 		hideEl : function (el){
-			var self = this,
-				 elst = el.style;
+			var elst = el.style;
 			elst.maxHeight = 0;
 			elst.paddingTop = 0;
 			elst.paddingBottom = 0;
@@ -108,19 +115,21 @@
 			el.setAttribute('aria-hidden', 'false');			
 		},
 		hideSibl : function(el){
-			//Array.prototype.forEach.call()
-			var self = this;
 			Array.prototype.forEach.call( siblings(el, self.foldersClass), function( sib, idx, ndl){
 				self.hideEl(sib);
 			});
 		},
 		setListeners : function(wr){
-			var self = this;
+			// We attach only one listener per accordion and delegate di event listening
 			wr.addEventListener('click', function(e){
 			   var el = e.target;
 			   // check that the event bubbles up to the proper header.
 			   while (el && !el.classList.contains(self.headersClass) ){
 			     el = el.parentNode;
+			     // stop bubbling after wrapper is met.
+			     if( el === wr ){
+			     		return;
+			     }
 			   }
 			   // now el is = to the actual element we need the event to be bound to			   
 			   self.toggleState( el.nextElementSibling );
