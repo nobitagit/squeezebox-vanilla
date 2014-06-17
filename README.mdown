@@ -1,19 +1,16 @@
-# Squeezebox.js
+# Squeezebox.js (Vanilla version)
 
-Squeezebox.js is a minimal, ultra-light jQuery plugin for easely adding accordions to any website. It's built to be fast, retain semantics and have low impact on markup.
+Squeezebox.js is a minimal Vanilla plugin for easily adding accordions to any website or app. If you fancy a jQuery version get it [here](https://github.com/nobitagit/squeezebox).
 
-See demo [here](http://apps.aurelio.me.uk/squeezebox/demo.html).
+See [demo](http://apps.aurelio.me.uk/squeezebox/demo.html).
 
 ## Install
 
-Download or fork the repo and include the .js or min.js file right after your jQuery is loaded.
+Download or fork the repo and include the .js or min.js file before your scripts.
 
 ``` html
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="squeezebox.min.js"></script>
 ```
-
-If you're  ok using the command line and use bower you can simply run `bower install squeezbox` to get a minified version of the plugin.
 
 ## Usage
 

@@ -30,7 +30,7 @@
 					Squeezebox<span class="understate-me">.js</span>
 				</h1>
 				<h2>
-					a minimal, ultra-light jQuery accordion plugin 
+					a minimal Vanilla Js accordion component
 				</h2>
 				<hr>
 				<nav class="main-nav">
@@ -55,7 +55,7 @@
 			</header>
 			<div class="page_content">
 				<p class="catchline">
-					Squeezebox.js is a minimal, ultra-light jQuery plugin for easely adding accordions to any website. It's built to retain semantics and to have the lowest impact possible on markup.
+					Squeezebox.js is a minimal Vanilla plugin for easily adding accordions to any website or app. If you fancy a jQuery version get it here.
 				</p>
 				<h3 id="setup">
 					Setup
@@ -77,7 +77,8 @@
 					In your js file hook to the wrapper element of the whole accordion and fire the plugin like so:					
 				</p>
 				<code>
-					$('.accordion-1').squeezebox();
+						var squeezebox = new Squeezebox();
+						squeezebox.init();
 				</code>
 				Here's the result:
 				<section id="accordion-1" class="squeezebox">
@@ -126,7 +127,7 @@
 				<p>
 					Further details in the <a href="#docs">docs</a>.
 				</p>
-				<section class="squeezebox" class="squeezebox">
+				<section id="squeezebox" class="squeezebox">
 					<header class="squeezhead">
 						<p>We open</p>
 					</header>
@@ -219,27 +220,34 @@
 				<h3 id="docs">
 					Docs
 				</h3>
-				Here is a full overview of the settings the plugin allows.
+				<p>
+					The plugin leverages CSS animations and the classList API, so it will work as expected in browsers that support these features (basically IE10). <br>
+					If you need a fallback for older browsers you can either provide support through polyfills (look here and here) or try the jQuery version of this plugin.
+				</p>
+				<p>
+					The plugin is configured to work out-of-the-box if the default html structure is provided. Any option can be overridden during instantiation, though. <br>
+					Here is a full overview of the configuration settings.					
+				</p>
 				<dl>
-					<dt>headers</dt>
+					<dt>wrapper</dt>
 					<dd>
-						<i>(property/string)</i> the class of the headers of each folder
+						<i>(property)</i> Select (no dot here)
 					</dd>
-					<dt>folders</dt>
+					<dt>headersClass</dt>
 					<dd>
-						<i>(property/string)</i> the class of the folders that get shown/hidden by the plugin
+						<i>(property/string)</i> the class of the headers of each folder (no dot here)
+					</dd>
+					<dt>foldersClass</dt>
+					<dd>
+						<i>(property/string)</i> the class of the folders that get shown/hidden by the plugin (no dot here)
 					</dd>
 					<dt>closeOthers</dt>
 					<dd>
 						<i>(property/boolean)</i> if set to true only one folder per accordion can be open at one time. If set to false the user will be able to see the content of multiple folder at once.
 					</dd>
-					<dt>closedOnStart</dt>
+					<dt>speed</dt>
 					<dd>
-						<i>(property/boolean)</i> if set to true the accordion will appear closed at page load.
-					</dd>
-					<dt>animated</dt>
-					<dd>
-						<i>(property/boolean)</i> if set to true the folders will be animating when opened. Set to false to avoid animation.
+						<i>(property/string)</i> set the speed of the animation (e.g. '.5s'). Set to 0 to avoid animation.
 					</dd>
 					<dt>onOpen</dt>
 					<dd>
@@ -288,7 +296,11 @@
 	<script>
 
 	var squeezebox = new Squeezebox({
-		closeOthers : false
+		//wrapperEl : '#squeezebox',
+		closeOthers : false,
+		onClose : function(a,b,c){
+			//console.log(a,b,c);
+		}
 	});
 	squeezebox.init();
 	</script>
