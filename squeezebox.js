@@ -7,7 +7,7 @@
 	"use strict";
 
 	var opt, self;
-	// UTILS ****
+	// *** UTILS ****
 	function getStyle(el, prop){
 		 return window.getComputedStyle(el).getPropertyValue(prop);
 	}
@@ -25,14 +25,14 @@
 	}
 
 	var _Squeezebox = function(opts){
-
+		// *** Defaults ***
 		this.wrapperEl = '.squeezebox';
 		this.headersClass = 'squeezhead';
 		this.foldersClass = 'squeezecnt';
 		this.closeOthers = true;
 		this.speed = '.7s';
 
-		//Override defaults
+		// Override defaults
 		if( opts ){
 			for ( opt in opts ){
 				this[opt] = opts[opt];
@@ -50,7 +50,7 @@
 				self.setListeners(wr); 
 			});
 		},
-		// the following method can be called whenever the content of the folder changes
+		// The following method can be called whenever the content of the folder changes
 		// in order to update its height. Example
 		// var sqbox = new Squeezebox();
 		// .....inject content...
@@ -117,7 +117,7 @@
 			});
 		},
 		setListeners : function(wr){
-			// We attach only one listener per accordion and delegate di event listening
+			// We attach only one listener per accordion and delegate the event listening
 			wr.addEventListener('click', function(e){
 			   var el = e.target;
 			   // check that the event bubbles up to the proper header.
