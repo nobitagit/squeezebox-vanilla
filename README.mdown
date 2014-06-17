@@ -53,6 +53,10 @@ $('.accordion-wrap').squeezebox({
 
 Callbacks are also available and get fired when opening or closing a folder. Further details in the docs and the demo.
 
+## TODO
+
+- add callbacks
+
 ## License
 
 This software is released under MIT license.

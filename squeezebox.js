@@ -10,7 +10,7 @@
 
 	"use strict";
 
-	var i, len, initialized;
+	var i, len, opt, initialized;
 
 	function getStyle(el, prop){
 		 return window.getComputedStyle(el).getPropertyValue(prop);
@@ -31,26 +31,25 @@
 		return Array.prototype.slice.call(nodes);
 	}
 
-	var _Squeezebox = function(el, opts){
+	var _Squeezebox = function(opts){
 
-		// Defaults
 		this.wrapper = document.getElementsByClassName('squeezebox');
 		this.headersClass = 'squeezhead';
 		this.foldersClass = 'squeezecnt';
 		this.closeOthers = true;
 		this.animated = true;
-		this.speed = '.5s'
+		this.speed = '.5s';
 
 		//Override defaults
-		if( opts === undefined || typeof opts === 'function'){
+		if( opts ){
 			for ( opt in opts ){
 				this[opt] = opts[opt];
+				console.log(this[opt])
 			}
 		}
 		this.animProps = ' height: auto; transition: all '+ this.speed +';';
 
 	};
-
 
 	_Squeezebox.prototype = {
 		init : function(){
@@ -134,7 +133,7 @@
 				this.hideEl(el);
 			} else {
 				// IF hidden show it
-				this.hideSibl(el);
+				if ( this.closeOthers ) { this.hideSibl(el); }
 				this.showEl(el);
 			}
 		}

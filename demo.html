@@ -287,7 +287,9 @@
 	<script type="text/javascript" src="squeezebox.js"></script>
 	<script>
 
-	var squeezebox = new Squeezebox();
+	var squeezebox = new Squeezebox({
+		closeOthers : false
+	});
 	squeezebox.init();
 	</script>
 	</body>
