@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700' rel='stylesheet' type='text/css'>
+	  <link  rel="stylesheet" href="demo_files/css/style.css">
+	  <!--[if lt IE 9]>
+	      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	  <![endif]-->
+	  <title>Squeezebox home</title>
+	</head>
+	<style type="text/css">
+		.squeezecnt{
+/*			height: auto;
+			-webkit-transition: all 1s;
+			transition: all 1s;*/
+		}
+		.sq_closed{
+			max-height: 0;
+			padding: 0;
+		}
+	</style>
+	<body>
+		<div class="wrap">
+			<header class="page_header">
+				<em class="logo">
+					S
+				</em>
+				<h1>
+					Squeezebox<span class="understate-me">.js</span>
+				</h1>
+				<h2>
+					a minimal, ultra-light jQuery accordion plugin 
+				</h2>
+				<hr>
+				<nav class="main-nav">
+					<ul>
+						<li><a href="#setup">
+							Setup		
+						</a></li>
+						<li><a href="#advanced">
+							A slightly more advanced usage
+						</a></li>
+						<li><a href="#callbacks">
+							Accordion with callbacks
+						</a></li>
+						<li><a href="#docs">
+							Docs
+						</a></li>
+						<li><a href="#dwl">
+							Download
+						</a></li>
+					</ul>					
+				</nav>
+			</header>
+			<div class="page_content">
+				<p class="catchline">
+					Squeezebox.js is a minimal, ultra-light jQuery plugin for easely adding accordions to any website. It's built to retain semantics and to have the lowest impact possible on markup.
+				</p>
+				<h3 id="setup">
+					Setup
+				</h3>
+				<p>
+					Squeezebox.js expects a very minimal structure to work and does not add any DIVs or HTML tags. It comes with predefined, overridable classes for its elements. Here's the minimum required layout the plugin needs:
+				</p>
+				<code>
+					&lt;div class="accordion-1"&gt; <br>
+					&nbsp;&lt;div class="squeezhead"&gt; <br>
+					&nbsp;&nbsp;header #1 <br>
+					&nbsp;&lt;/div&gt; <br>
+					&nbsp;&lt;div class="squeezecnt"&gt; <br>
+					&nbsp;&nbsp;here goes the content <br>
+					&nbsp;&lt;/div&gt; <br>
+					&lt;/div&gt; <br>
+				</code>					
+				<p>
+					In your js file hook to the wrapper element of the whole accordion and fire the plugin like so:					
+				</p>
+				<code>
+					$('.accordion-1').squeezebox();
+				</code>
+				Here's the result:
+				<section id="accordion-1" class="squeezebox">
+					<header class="squeezhead">
+						<p>Click me</p>
+					</header>
+					<div class="squeezecnt">
+						<p>You clicked me.</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Hit me</p>
+					</header>
+					<div class="squeezecnt">
+						<p>Ouch!</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Toggle me</p>
+					</header>
+					<div class="squeezecnt">
+						<p>Here I am.</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Press me</p>
+					</header>
+					<div class="squeezecnt">
+						<p>This is just a default accordion...scroll for more options!</p>
+					</div>
+				</section>
+
+				<code class="with-arrow-up">
+					$('.accordion-1').squeezebox();
+				</code>
+
+				<h3 id="advanced">
+					A slightly more advanced usage
+				</h3>
+				<p>
+					Even though the plugin comes with out-of-the-box, predefined classes for both the headers and the togglable content by no means you are bound to use those. Just pass them as options of the plugin. 
+				</p>
+				<p>
+					In the following example we're also defining a different speed of the opening/closing animation. Another option passed makes sure that open folders are not automatically closed when a new one is opened.
+				</p>
+				<p>
+					Further details in the <a href="#docs">docs</a>.
+				</p>
+				<section class="squeezebox" class="squeezebox">
+					<header class="squeezhead">
+						<p>We open</p>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>A little</p>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Bit faster</p>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Then the others</p>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+				</section>
+				<code class="with-arrow-up">
+					$('.accordion-2').squeezebox({ <br>
+						&nbsp;closeOthers: false, <br>
+						&nbsp;timing: 300 <br>
+					});
+				</code>
+				<h3 id="callbacks">
+					Accordion with callbacks
+				</h3>			
+				<p>
+					Along with the set of option shown above the plugin offers two different callbacks you can hook to. One is fired when opening a folder, the other when closing it. Both expose the whole object created at init time. This allows for easy accessing to the elements such as the headers and the folders so we can toggle classes when the accordion is used.
+				</p>
+				<p>
+					Further details in the <a href="#docs">docs</a>.
+				</p>
+				<section class="accordion-3">
+					<header class="squeezhead">
+						<p>Nice arrows</p>
+						<span class="icon-arrow-right"></span>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Header #2</p>
+						<span class="icon-arrow-right"></span>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Header #3</p>
+						<span class="icon-arrow-right"></span>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+
+					<header class="squeezhead">
+						<p>Header #4</p>
+						<span class="icon-arrow-right"></span>
+					</header>
+					<div class="squeezecnt">
+						<p>your content here</p>
+					</div>
+				</section>
+				<code class="with-arrow-up">
+					$('.accordion-3').squeezebox({ <br>
+						&nbsp; <span class="comment">// make sure you pass the element (el) <br>
+						&nbsp;  // as a parameter so you <br>
+						&nbsp; // can gain acces to it </span><br>
+						&nbsp;&nbsp;onOpen: function(el){ <br>
+						&nbsp;&nbsp;&nbsp;el.clickedEl.addClass('accordion_open'); <br>
+						&nbsp;}, <br>
+						&nbsp;&nbsp;onClose: function(el){ <br>
+						&nbsp;&nbsp;&nbsp;el.clickedEl.removeClass('accordion_open'); <br>
+						&nbsp;}	<br>
+					});
+				</code>
+				<h3 id="docs">
+					Docs
+				</h3>
+				Here is a full overview of the settings the plugin allows.
+				<dl>
+					<dt>headers</dt>
+					<dd>
+						<i>(property/string)</i> the class of the headers of each folder
+					</dd>
+					<dt>folders</dt>
+					<dd>
+						<i>(property/string)</i> the class of the folders that get shown/hidden by the plugin
+					</dd>
+					<dt>closeOthers</dt>
+					<dd>
+						<i>(property/boolean)</i> if set to true only one folder per accordion can be open at one time. If set to false the user will be able to see the content of multiple folder at once.
+					</dd>
+					<dt>closedOnStart</dt>
+					<dd>
+						<i>(property/boolean)</i> if set to true the accordion will appear closed at page load.
+					</dd>
+					<dt>animated</dt>
+					<dd>
+						<i>(property/boolean)</i> if set to true the folders will be animating when opened. Set to false to avoid animation.
+					</dd>
+					<dt>onOpen</dt>
+					<dd>
+						<i>(method/function)</i> callback fired when opening a folder. By passing the whole element as a parameter (e.g. <b>function(el)</b> ) you will expose all the elements accessible with this API:
+						<ul>
+							<li><b>el.wrap</b>: the wrapping div where the whole plugin fires</li>
+							<li><b>el.clickedEl</b>: the heading that was clicked</li>
+							<li><b>el.relatedFolder</b>: the related div that is toggled</li>
+						</ul>
+					</dd>
+					<dt>onClose</dt>
+					<dd>
+						<i>(method/function)</i> callback fired when closing a folder.
+					</dd>
+				</dl>
+				<p>
+					These are the default values that get used if no options are passed. It exposes the same API as the onOpen method.
+				</p>
+				<code>
+					$('.accordion-wrap').squeezebox({ <br>
+						&nbsp;headers: '.squeezhead', <br>
+						&nbsp;folders: '.squeezecnt', <br>
+						&nbsp;closeOthers: true, <br>
+						&nbsp;closedOnStart: true, <br>
+						&nbsp;animated : true <br>
+					});
+				</code>
+				<h3 id="dwl">
+					Download
+				</h3>
+				<p>
+					You can fork or download the latest version of the plugin directly from the github repo.
+				</p>
+				<p>
+					<a href="https://github.com/nobitagit/squeezebox" class="button">
+						Project on Github
+					</a>
+				</p>
+			</div>
+			<footer class="page_footer">
+				<a href="https://github.com/nobitagit"><span class="icon-github"></span></a>&nbsp;&nbsp;<a href="https://twitter.com/aureliari"><span class="icon-twitter"></span></a>&nbsp;
+			</footer>	
+		</div>
+
+	<script type="text/javascript" src="squeezebox.js"></script>
+	<script>
+
+	var squeezebox = new Squeezebox();
+	squeezebox.init();
+	</script>
+	</body>
+</html>

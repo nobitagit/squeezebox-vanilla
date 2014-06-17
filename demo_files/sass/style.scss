@@ -1,0 +1,407 @@
+@import "compass/css3",
+		  "_normalize.scss";
+
+/* apply a natural box layout model to all elements */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+// avoid flickering when animating with css
+.no-flick{
+	-webkit-transform:translate3d(0,0,0);
+	-webkit-transform-style: preserve-3d;
+	-webkit-perspective: 1000;
+	-webkit-backface-visibility: hidden; 
+}
+/*
+ * A better looking default horizontal rule
+ */
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #bbb;
+    margin: 1em 0;
+    padding: 0;
+}
+
+// link: http://css-tricks.com/media-queries-sass-3-2-and-codekit/
+$small: 700px;
+$large: 900px;
+
+@mixin mq($viewport) {
+    @if $viewport ==  small {
+        @media only screen and (max-width: $small) { @content; }
+    }
+    @if $viewport ==  medium {
+        @media only screen and (min-width: $small + 1) { @content; }
+    }
+    @if $viewport ==  large {
+        @media only screen and (min-width: $large) { @content; }
+    }
+}
+
+$blue: rgb(52, 129, 163);
+$light-blue: lighten($blue, 20%);
+$text-color: #5E757F;
+$bkg: #ccc;
+$light-contrast: darken($bkg, 30%);
+
+html, body{
+	@extend .cf;
+	background: $bkg;
+	color: $text-color;
+	line-height: 1.5;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+body{
+	border-top: 4px solid $blue;
+	border-bottom: 4px solid $blue;
+}
+.wrap{
+	width: 95%;
+	position: relative;
+	margin: 30px auto 0;
+	max-width: 1000px;
+	@include mq(medium){
+		width: 100%;
+		max-width: 100%;
+	}
+}
+.page_header, .page_content{
+	position: relative;
+	width: 100%;
+	@extend .no-flick;
+}
+.page_header{
+	position: relative;
+	@include mq(medium){
+		position: fixed;
+		left: 0;
+		width: 300px;
+	}
+}
+.page_content{
+	position: relative;
+	margin-top: 20px;
+	@include mq(medium){
+		width: 100%;
+		max-width: 400px;
+		margin-left: 300px;
+	}
+	@include mq(large){
+		width: 100%;
+		max-width: 600px;
+		margin-left: 300px;
+	}
+}
+
+.logo{
+	font-size: 50px;
+	line-height: 60px;
+	position: relative;
+	margin-left: -30px;
+	left: 50%;
+	text-align: center;
+	display: inline-block;
+	color: $bkg;
+	background: #3481a3;
+	border-radius: 100%;
+	width: 60px;
+	height: 60px;
+	font-style: normal;
+	z-index: 0;
+
+	&:before{
+		content: "";
+		position: absolute;
+		border-radius: 100%;
+		background: $blue;
+		width: 10px;
+		height: 10px;
+		top: 0;
+		right: -30px;
+		z-index: -10;
+		-webkit-transform: scale(1) translate(0px, 0px);
+		-webkit-animation: rotate 3s 1s 5 linear;
+	}
+}
+@-webkit-keyframes rotate {
+	0%{
+		-webkit-transform: scale(1) translate(0px, 0px); }
+	10%{
+		-webkit-transform: scale(1.03) translate(-10px, 15px); }
+	25%{
+		-webkit-transform: scale(1.2) translate(-43px, 38px);
+		z-index: 10;
+		background: lighten($blue, 20%); }
+	50%{
+		-webkit-transform: scale(1) translate(-110px, 50px); }
+	57%{
+		-webkit-transform: scale(0.97) translate(-100px, 40px);
+		background: $blue; }
+	75%{
+		-webkit-transform: scale(0.8) translate(-68px, 8px);
+		z-index: -10; }
+}
+
+a{
+	text-decoration: none;
+	color: darken($text-color, 10%);
+}
+h1{
+	color: $blue;
+	text-align: center;
+	.understate-me{
+		color: $light-blue;
+	}
+}
+h2{
+	color: $text-color;
+	font-size: 14px;
+	text-align: center;
+	padding: 0 40px;
+	margin-bottom: 20px;
+}
+h3{
+	color: $blue;
+	margin-top: 40px;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	font-weight: 200;
+}
+.page_content{
+	p{
+	font-size: 1.1em; }
+	a{
+		text-decoration: underline; }
+}
+hr{
+	width: 80%;
+	margin-left: 10%;
+	margin-bottom: 20px;
+}
+dt{
+	font-weight: bold;
+	background: darken($bkg, 3%);
+}
+dd{
+	margin-bottom: 20px;
+}
+.main-nav{
+	text-align: center;
+	font-size: 1em;
+	@include mq(medium){
+		text-align: left;
+		padding: 0 40px;
+	}
+	ul{
+		padding: 0;
+	}
+	li{
+		list-style: none;
+		margin-bottom: 10px;
+		position: relative;
+		&:before{
+			content: "";
+			left: -10px;
+			color: $light-contrast;
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: 0.5em;
+			border-width: 4px;
+			border-style: solid;
+			border-color: transparent transparent transparent darken($bkg, 10%);
+		}
+		&:hover{
+			&:before{
+				color: $blue;
+				border-color: transparent transparent transparent $blue;
+			}
+		}
+	}
+	a{
+		color: $light-contrast;
+		text-decoration: none;
+		&:hover{
+			color: $blue;
+		}
+	}
+}
+
+.catchline{
+	padding-top: 90px;
+}
+
+[class^="accordion-"], [class*=" accordion-"]{
+	width: 100%;
+	margin: 20px auto;
+	position: relative;
+	border-radius: 20px;
+	overflow: hidden;
+	-webkit-transform: translate(0);
+}
+
+code{
+	background: #ACACAC;
+	background: lighten($bkg, 4%);
+	display: block;
+	padding: 10px;
+	border-radius: 5px;
+	position: relative;
+	color: $blue;
+	margin-bottom: 20px;
+	&.with-arrow-up:before{
+		content: "";
+		position: absolute;
+		top: -19px;
+		left: 10px;
+		border-style: solid;
+		border-width: 10px;
+		border-color: transparent transparent lighten($bkg, 4%) transparent;
+	}
+	&:hover{
+		background: $blue;
+		color: $bkg;
+	}
+	&.with-arrow-up:hover:before{
+		border-color: transparent transparent $blue transparent;			
+	}
+	.comment{
+		color: #888;
+	}
+}
+
+.page_content .button{
+	padding: 10px 15px;
+	background: $blue;
+	color: $bkg;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 14px;
+	margin: 0.5em 0;
+	display: inline-block;
+	&:hover{
+		background: lighten($blue, 5%);
+	}
+}
+
+.squeezhead{
+	background: #c2c2c2;
+	border: 1px solid $bkg;
+	padding: 6px;
+	color: $blue;
+	position: relative;
+	cursor: pointer;
+	@extend .cf;
+	&:hover{
+		background: darken(#c2c2c2, 1%);
+	}
+	p{
+		font-weight: bold;
+		margin: 5px 15px;
+	}
+	.icon-arrow-right{
+		@include transition(all 0.7s);
+		@include transform(rotate(-90deg));
+		font-size: 1.5em;
+		display: inline-block;
+		top: 13px;
+		right: 15px;
+		position: absolute;
+	}
+}
+.squeezecnt{
+	background: #BFC4C5;
+	padding: 20px;
+	p{
+		margin: 0;
+	}
+}
+.accordion_open{
+	background: darken(#c2c2c2, 10%);
+	.icon-arrow-right{
+		@include transform(rotate(90deg));
+	}
+}
+.page_footer{
+	background: darken($bkg, 3%);
+	margin-top: 60px;
+	text-align: center;
+	padding: 10px 0;
+	@include mq(medium){
+		padding: 10px 30px;
+		text-align: left;
+	}
+	[class^="icon-"], [class*=" icon-"]{
+		font-size: 1.4em;
+		margin: 0 6px;
+		@include transition(all .5s);
+		&:hover{
+			text-shadow: 0 0 10px rgb(52, 129, 163);
+			color: #ccc;
+		}
+	}
+}
+
+// ICOMOON Styles
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../icons/fonts/icomoon.eot?iqfpkj');
+	src:url('../icons/fonts/icomoon.eot?#iefixiqfpkj') format('embedded-opentype'),
+		url('../icons/fonts/icomoon.woff?iqfpkj') format('woff'),
+		url('../icons/fonts/icomoon.ttf?iqfpkj') format('truetype'),
+		url('../icons/fonts/icomoon.svg?iqfpkj#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-paperplane:before {
+	content: "\e600";
+}
+.icon-book:before {
+	content: "\e601";
+}
+.icon-install:before {
+	content: "\e602";
+}
+.icon-arrow-right:before {
+	content: "\e603";
+}
+.icon-github:before {
+	content: "\e604";
+}
+.icon-github2:before {
+	content: "\e605";
+}
+.icon-twitter:before {
+	content: "\e606";
+}
+.icon-twitter2:before {
+	content: "\e607";
+}
+
+

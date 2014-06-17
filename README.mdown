@@ -1,0 +1,63 @@
+# Squeezebox.js
+
+Squeezebox.js is a minimal, ultra-light jQuery plugin for easely adding accordions to any website. It's built to be fast, retain semantics and have low impact on markup.
+
+See demo [here](http://apps.aurelio.me.uk/squeezebox/demo.html).
+
+## Install
+
+Download or fork the repo and include the .js or min.js file right after your jQuery is loaded.
+
+``` html
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="squeezebox.min.js"></script>
+```
+
+If you're  ok using the command line and use bower you can simply run `bower install squeezbox` to get a minified version of the plugin.
+
+## Usage
+
+Squeezebox.js expects a very minimal structure to work and does not add any DIVs or HTML tags. It comes with predefined, overridable classes for its elements. Here's an example of the minimum required layout the plugin needs:
+
+``` html
+<div class="accordion">
+	<header class="squeezhead">
+		<p>header</p>
+	</header>
+	<div class="squeezecnt">
+		<p>content</p>
+	</div>
+</div>
+```
+Once the plugin is loaded a new squeezebox method will be available. Just fire it like so:
+
+``` js
+$('.accordion-wrap').squeezebox();
+```
+
+For in depth usage see the demo.
+
+## Options
+
+Options can be passed to override the defaults. Just pass them as an object to the squeezbox method like so:
+
+``` js
+$('.accordion-wrap').squeezebox({
+	headers: '.squeezhead',
+	folders: '.squeezecnt',
+	closeOthers: true,
+	closedOnStart: true,
+	animated : true
+});
+```
+
+Callbacks are also available and get fired when opening or closing a folder. Further details in the docs and the demo.
+
+## License
+
+This software is released under MIT license.
+
+
+
+
+
