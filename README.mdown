@@ -1,6 +1,9 @@
 # Squeezebox.js (Vanilla version)
 
-Squeezebox.js is a minimal Vanilla plugin for easily adding accordions to any website or app. If you fancy a jQuery version get it [here](https://github.com/nobitagit/squeezebox).
+Squeezebox.js is a minimal Vanilla JavaScript plugin that makes adding accordions to any website or app a metter of seconds.
+It's powered by CSS3 transitions for increased performance, weighs around 1kb minified and Gziped and requires no extra library.
+
+If you fancy a jQuery version get it [here](https://github.com/nobitagit/squeezebox).
 
 See [demo](http://apps.aurelio.me.uk/squeezebox/demo.html).
 
@@ -17,7 +20,7 @@ Download or fork the repo and include the .js or min.js file before your scripts
 Squeezebox.js expects a very minimal structure to work and does not add any DIVs or HTML tags. It comes with predefined, overridable classes for its elements. Here's an example of the minimum required layout the plugin needs:
 
 ``` html
-<div class="accordion">
+<div class="squeezebox">
 	<header class="squeezhead">
 		<p>header</p>
 	</header>
@@ -26,33 +29,14 @@ Squeezebox.js expects a very minimal structure to work and does not add any DIVs
 	</div>
 </div>
 ```
-Once the plugin is loaded a new squeezebox method will be available. Just fire it like so:
+In your js file create a new instance of Squeezebox and fire the script with init():
 
 ``` js
-$('.accordion-wrap').squeezebox();
+var squeezebox = new Squeezebox(); <br>
+squeezebox.init();
 ```
 
 For in depth usage see the demo.
-
-## Options
-
-Options can be passed to override the defaults. Just pass them as an object to the squeezbox method like so:
-
-``` js
-$('.accordion-wrap').squeezebox({
-	headers: '.squeezhead',
-	folders: '.squeezecnt',
-	closeOthers: true,
-	closedOnStart: true,
-	animated : true
-});
-```
-
-Callbacks are also available and get fired when opening or closing a folder. Further details in the docs and the demo.
-
-## TODO
-
-- add callbacks
 
 ## License
 
