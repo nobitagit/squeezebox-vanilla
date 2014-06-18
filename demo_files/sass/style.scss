@@ -48,8 +48,10 @@ $large: 900px;
     }
 }
 
-$blue: rgb(52, 129, 163);
-$light-blue: lighten($blue, 20%);
+$main: #289487; //#34A396;
+$light-blue: lighten($main, 10%);
+$codebkg : #323F3D;
+$headers : #5A6664; //#635C6B;
 $text-color: #5E757F;
 $bkg: #ccc;
 $light-contrast: darken($bkg, 30%);
@@ -62,8 +64,8 @@ html, body{
 	font-family: 'Source Sans Pro', sans-serif;
 }
 body{
-	border-top: 4px solid $blue;
-	border-bottom: 4px solid $blue;
+	border-top: 4px solid $main;
+	border-bottom: 4px solid $main;
 }
 .wrap{
 	width: 95%;
@@ -112,7 +114,7 @@ body{
 	text-align: center;
 	display: inline-block;
 	color: $bkg;
-	background: #3481a3;
+	background: $main;
 	border-radius: 100%;
 	width: 60px;
 	height: 60px;
@@ -123,7 +125,7 @@ body{
 		content: "";
 		position: absolute;
 		border-radius: 100%;
-		background: $blue;
+		background: $main;
 		width: 10px;
 		height: 10px;
 		top: 0;
@@ -141,12 +143,12 @@ body{
 	25%{
 		-webkit-transform: scale(1.2) translate(-43px, 38px);
 		z-index: 10;
-		background: lighten($blue, 20%); }
+		background: lighten($main, 20%); }
 	50%{
 		-webkit-transform: scale(1) translate(-110px, 50px); }
 	57%{
 		-webkit-transform: scale(0.97) translate(-100px, 40px);
-		background: $blue; }
+		background: $main; }
 	75%{
 		-webkit-transform: scale(0.8) translate(-68px, 8px);
 		z-index: -10; }
@@ -154,10 +156,10 @@ body{
 
 a{
 	text-decoration: none;
-	color: darken($text-color, 10%);
+	color: darken($main, 0%);
 }
 h1{
-	color: $blue;
+	color: $main;
 	text-align: center;
 	.understate-me{
 		color: $light-blue;
@@ -171,7 +173,7 @@ h2{
 	margin-bottom: 20px;
 }
 h3{
-	color: $blue;
+	color: $main;
 	margin-top: 40px;
 	font-size: 1.5em;
 	text-transform: uppercase;
@@ -190,10 +192,13 @@ hr{
 }
 dt{
 	font-weight: bold;
-	background: darken($bkg, 3%);
+	background: $codebkg;
+	color: $main;
+	padding: 5px;
 }
 dd{
 	margin-bottom: 20px;
+	padding: 5px 0;
 }
 .main-nav{
 	text-align: center;
@@ -223,8 +228,8 @@ dd{
 		}
 		&:hover{
 			&:before{
-				color: $blue;
-				border-color: transparent transparent transparent $blue;
+				color: $main;
+				border-color: transparent transparent transparent $main;
 			}
 		}
 	}
@@ -232,7 +237,7 @@ dd{
 		color: $light-contrast;
 		text-decoration: none;
 		&:hover{
-			color: $blue;
+			color: $main;
 		}
 	}
 }
@@ -245,19 +250,19 @@ dd{
 	width: 100%;
 	margin: 20px auto;
 	position: relative;
-	border-radius: 20px;
+	border-radius: 10px;
 	overflow: hidden;
 	-webkit-transform: translate(0);
+	@extend .no-flick;
 }
 
 code{
-	background: #ACACAC;
-	background: lighten($bkg, 4%);
+	background: $codebkg;
 	display: block;
 	padding: 10px;
 	border-radius: 5px;
 	position: relative;
-	color: $blue;
+	color: $main;
 	margin-bottom: 20px;
 	&.with-arrow-up:before{
 		content: "";
@@ -266,14 +271,12 @@ code{
 		left: 10px;
 		border-style: solid;
 		border-width: 10px;
-		border-color: transparent transparent lighten($bkg, 4%) transparent;
+		border-color: transparent transparent $codebkg transparent;
 	}
 	&:hover{
-		background: $blue;
-		color: $bkg;
 	}
 	&.with-arrow-up:hover:before{
-		border-color: transparent transparent $blue transparent;			
+		//border-color: transparent transparent $main transparent;			
 	}
 	.comment{
 		color: #888;
@@ -282,7 +285,7 @@ code{
 
 .page_content .button{
 	padding: 10px 15px;
-	background: $blue;
+	background: $main;
 	color: $bkg;
 	text-decoration: none;
 	border-radius: 5px;
@@ -290,46 +293,55 @@ code{
 	margin: 0.5em 0;
 	display: inline-block;
 	&:hover{
-		background: lighten($blue, 5%);
+		background: lighten($main, 5%);
 	}
 }
 
-.squeezhead{
-	background: #c2c2c2;
+.squeezhead, .myheader{
+	background: $headers;
 	border: 1px solid $bkg;
 	padding: 6px;
-	color: $blue;
+	color: $bkg;
 	position: relative;
 	cursor: pointer;
 	@extend .cf;
 	&:hover{
-		background: darken(#c2c2c2, 1%);
+		background: darken($headers, 2%);
 	}
 	p{
-		font-weight: bold;
 		margin: 5px 15px;
 	}
 	.icon-arrow-right{
 		@include transition(all 0.7s);
 		@include transform(rotate(-90deg));
+		@extend .no-flick;
 		font-size: 1.5em;
 		display: inline-block;
 		top: 13px;
 		right: 15px;
 		position: absolute;
 	}
+  -webkit-user-select: none;
+  -moz-user-select: none;  
+  -ms-user-select: none; 
+  -o-user-select: none;
+  user-select: none;  
 }
-.squeezecnt{
-	background: #BFC4C5;
+.squeezecnt, .mycontent{
+	background: #ACB6B4;
 	padding: 20px;
 	p{
 		margin: 0;
 	}
 }
 .accordion_open{
-	background: darken(#c2c2c2, 10%);
 	.icon-arrow-right{
 		@include transform(rotate(90deg));
+	}
+}
+.the-api{
+	i{
+		color: #888;
 	}
 }
 .page_footer{
@@ -356,11 +368,11 @@ code{
 
 @font-face {
 	font-family: 'icomoon';
-	src:url('../icons/fonts/icomoon.eot?iqfpkj');
-	src:url('../icons/fonts/icomoon.eot?#iefixiqfpkj') format('embedded-opentype'),
-		url('../icons/fonts/icomoon.woff?iqfpkj') format('woff'),
-		url('../icons/fonts/icomoon.ttf?iqfpkj') format('truetype'),
-		url('../icons/fonts/icomoon.svg?iqfpkj#icomoon') format('svg');
+	src:url('icomoon.eot?iqfpkj');
+	src:url('icomoon.eot?#iefixiqfpkj') format('embedded-opentype'),
+		url('icomoon.woff?iqfpkj') format('woff'),
+		url('icomoon.ttf?iqfpkj') format('truetype'),
+		url('icomoon.svg?iqfpkj#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

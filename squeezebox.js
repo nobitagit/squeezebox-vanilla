@@ -6,7 +6,6 @@
 
 	"use strict";
 
-	var opt, self;
 	// *** UTILS ****
 	function getStyle(el, prop){
 		 return window.getComputedStyle(el).getPropertyValue(prop);
@@ -34,7 +33,7 @@
 
 		// Override defaults
 		if( opts ){
-			for ( opt in opts ){
+			for ( var opt in opts ){
 				this[opt] = opts[opt];
 			}
 		}
@@ -42,9 +41,8 @@
 
 	_Squeezebox.prototype = {
 		init : function(){		
-			self = this;
+			var self = this;
 			this.wrapper = document.querySelectorAll(this.wrapperEl);
-
 			Array.prototype.forEach.call(this.wrapper,function(wr, idx, node){
 				self.getHeights(wr); 
 				self.setListeners(wr); 
@@ -60,7 +58,8 @@
 		// so that the user needs will be able to update the div height of currently open tabs
 		getHeights : function(wr){
 			// Call this method 
-			var folders = wr.getElementsByClassName(self.foldersClass),
+			var self = this,
+				 folders = wr.getElementsByClassName(self.foldersClass),
 				 fl = folders.length,
 				 el,
 				 elst;
@@ -79,6 +78,7 @@
 				elst.visibility = 'hidden';
 				elst.display = '';
 				elst.transition = '';
+			// TODO: add will-change for better performance? http://dev.opera.com/articles/css-will-change-property/
 				self.showEl(el);
 				setAttrs(el, {
 					'data-sq_h'  : getStyle(el, 'height'),
@@ -92,6 +92,7 @@
 			}
 		},
 		addTran : function(el){
+			var self = this;
 			setTimeout(function(){
 				el.style.transition = 'all ' + self.speed;				
 			}, 100);
@@ -112,11 +113,13 @@
 			el.setAttribute('aria-hidden', 'false');			
 		},
 		hideSibl : function(el){
+			var self = this;
 			Array.prototype.forEach.call( siblings(el, self.foldersClass), function( sib, idx, ndl){
 				self.hideEl(sib);
 			});
 		},
 		setListeners : function(wr){
+			var self = this;
 			// We attach only one listener per accordion and delegate the event listening
 			wr.addEventListener('click', function(e){
 			   var el = e.target;
