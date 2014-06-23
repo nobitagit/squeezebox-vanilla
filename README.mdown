@@ -5,7 +5,7 @@ It's powered by CSS3 transitions for increased performance, weighs around 1kb mi
 
 If you fancy a jQuery version get it [here](https://github.com/nobitagit/squeezebox).
 
-See [demo](http://apps.aurelio.me.uk/squeezebox/demo.html).
+See [demo](http://nobitagit.github.io/squeezebox-vanilla/).
 
 ## Install
 
