@@ -1,7 +1,7 @@
 # Squeezebox.js (Vanilla version)
 
-Squeezebox.js is a minimal Vanilla JavaScript plugin that makes adding accordions to any website or app a metter of seconds.
-It's powered by CSS3 transitions for increased performance, weighs around 1kb minified and Gziped and requires no extra library.
+Squeezebox.js is a minimal Vanilla JavaScript plugin that makes adding accordions to any website or app a matter of seconds.
+It's powered by CSS3 transitions for increased performance, weighs around 1kb minified and gzipped and requires no extra library.
 
 If you fancy a jQuery version get it [here](https://github.com/nobitagit/squeezebox).
 
@@ -21,22 +21,22 @@ Squeezebox.js expects a very minimal structure to work and does not add any DIVs
 
 ``` html
 <div class="squeezebox">
-	<header class="squeezhead">
-		<p>header</p>
-	</header>
-	<div class="squeezecnt">
-		<p>content</p>
-	</div>
+  <header class="squeezhead">
+    <p>header</p>
+  </header>
+  <div class="squeezecnt">
+    <p>content</p>
+  </div>
 </div>
 ```
 In your js file create a new instance of Squeezebox and fire the script with init():
 
 ``` js
-var squeezebox = new Squeezebox(); <br>
+var squeezebox = new Squeezebox();
 squeezebox.init();
 ```
 
-For in depth usage see the demo.
+For in-depth usage, see the demo.
 
 ## License
 
